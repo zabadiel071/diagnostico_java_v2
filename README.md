@@ -31,3 +31,4 @@
     * Si `player_cat` es **D** y `potential_vs_overall` es superior a **1.25**
 5. Por favor escriba la tabla resultante de los pasos anteriores particionada por la columna `nationality`.
 
+¡Buena suerte!
