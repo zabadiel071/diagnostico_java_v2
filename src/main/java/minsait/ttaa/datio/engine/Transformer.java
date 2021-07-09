@@ -19,7 +19,7 @@ public class Transformer extends Writer {
 
     public Transformer(@NotNull SparkSession spark) {
         this.spark = spark;
-        Dataset<Row> df = readInput();
+        Dataset<Row> df = inputWithoutNulls();
         df.printSchema();
         df = exampleWindowFunction(df);
         df = columnSelection(df);
@@ -41,10 +41,16 @@ public class Transformer extends Writer {
         );
     }
 
-    private Dataset<Row> readInput() {
+    /**
+     * @return a Dataset with the columns to use without null values
+     */
+    private Dataset<Row> inputWithoutNulls() {
         return spark.read()
                 .option(HEADER, true)
-                .csv(INPUT_PATH);
+                .csv(INPUT_PATH)
+                .filter(
+                        teamPosition.column().isNotNull().and(shorName.column().isNotNull())
+                );
     }
 
     /**
@@ -65,7 +71,9 @@ public class Transformer extends Writer {
                 .when(rank.$less(50), "B")
                 .otherwise("C");
 
-        return df.withColumn(catHeightByPosition.getName(), rule);
+        df = df.withColumn(catHeightByPosition.getName(), rule);
+
+        return df;
     }
 
 }

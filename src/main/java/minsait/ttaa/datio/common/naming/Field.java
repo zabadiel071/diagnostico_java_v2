@@ -10,7 +10,7 @@ public class Field {
         this.name = name;
     }
 
-    String name = "field";
+    private String name = "field";
 
     public String getName() {
         return name;
