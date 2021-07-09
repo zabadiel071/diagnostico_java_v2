@@ -12,6 +12,10 @@ public class Field {
 
     String name = "field";
 
+    public String getName() {
+        return name;
+    }
+
     public Column column() {
         return col(name);
     }

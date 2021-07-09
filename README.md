@@ -17,12 +17,14 @@
 
 ## Ejercicio
 1. La tabla de salida debe contener las siguientes columnas:
-    `short_name, long_name, age, dob, height_cm, weight_kg, nationality, club_name, overall, potential, team_position`
-2. Agregar una columna `player_cat` que responderá a la siguiente regla (de acuerdo a las columna `overall`):
-    * **A** si el jugador es de los mejores 10 jugadores 
-    * **B** si el jugador es de los mejores 20 jugadores
-    * **C** si el jugador es de los mejores 50 jugadores
-    * **D** para el resto de jugadores
+    `short_name, long_name, age, height_cm, weight_kg, nationality, club_name, overall, potential, team_position`
+2. Agregar una columna `player_cat` que responderá a la siguiente regla (rank over Window particionada por `nationality` y ordenada por `overall`):
+    * **A** si el jugador es de los mejores 10 jugadores de su país.
+    * **B** si el jugador es de los mejores 20 jugadores de su país.
+    * **C** si el jugador es de los mejores 50 jugadores de su país.
+    * **D** para el resto de jugadores.
+    
+    ***tip** para resolver este ejercicio mire el método de ejemplo exampleWindowFunction incluido en el código.*
 3. Agregaremos una columna `potential_vs_overall` con la siguiente regla: 
     * Columna `potential` dividida por la columna `overall`  
 4. Filtraremos de acuerdo a la columnas `player_cat` y `potential_vs_overall` con las siguientes condiciones:
