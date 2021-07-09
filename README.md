@@ -32,6 +32,6 @@
     * Si `player_cat` es **D** y `potential_vs_overall` es superior a **1.25**
 5. Por favor escriba la tabla resultante de los pasos anteriores particionada 
 por la columna `nationality`, la salida debe estar escrita en formato **parquet** y debe usarse el método `coalese(1)`
-para obtener sólo un archivo por partición..
+para obtener sólo un archivo por partición.
 
 ¡Buena suerte!
