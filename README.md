@@ -2,10 +2,10 @@
 
 ## Instrucciones
 
-1. Realizar un fork de este repositorio a tu cuenta de github
-2. Crear una rama que por nombre lleve tus iniciales a partir de la rama solution
-3. Realizar los ejercicios solicitados abajo
-4. Realizar un Pull Request a la rama solution desde la rama en que haz realizado los ejercicios
+1. Realizar un fork de este repositorio a tu cuenta de github.
+2. Crear una rama que por nombre lleve tus iniciales a partir de la rama solution.
+3. Realizar los ejercicios solicitados abajo.
+4. Enviar por correo electronico la notificación de finalización y el link al repositorio de solución.
 
 ## ¿Qué evaluaremos?
 
