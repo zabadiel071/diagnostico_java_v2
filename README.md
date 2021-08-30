@@ -1,4 +1,4 @@
-# Examen Diagnostico JAVA to Big Data
+# Examen Diagnostico JAVA to Big Data v2
 **cuentas con 24 horas para resolver el ejercicio**
 
 
