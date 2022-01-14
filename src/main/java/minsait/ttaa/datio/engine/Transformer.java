@@ -24,7 +24,8 @@ public class Transformer extends Writer {
 
         df = cleanData(df);
         df = exampleWindowFunction(df);
-        df = getAgeRange(df);
+        df = ageRange(df);
+        df = rankNationalityPosition(df);
         df = columnSelection(df);
 
         // for show 100 records after your transformations and show the Dataset schema
@@ -47,7 +48,8 @@ public class Transformer extends Writer {
                 overall.column(),
                 potential.column(),
                 teamPosition.column(),
-                ageRange.column()
+                ageRange.column(),
+                rankByNationalityPosition.column()
                 // catHeightByPosition.column()
         );
     }
@@ -104,7 +106,7 @@ public class Transformer extends Writer {
         return df;
     }
 
-    private Dataset<Row> getAgeRange(Dataset<Row> df){
+    private Dataset<Row> ageRange(Dataset<Row> df){
 
         df = df.withColumn(ageRange.getName(),  when( age.column().$less(23), "A"  )
                                                 .when(age.column().between(23,27), "B")
@@ -112,5 +114,18 @@ public class Transformer extends Writer {
                                                 .otherwise("D"));
 
         return df;
+    }
+
+    private Dataset<Row> rankNationalityPosition(Dataset<Row> df) {
+
+        WindowSpec w = Window
+                .partitionBy(nationality.column() ,teamPosition.column() )
+                .orderBy(overall.column().desc());
+
+        Column rank = rank().over(w);
+
+        df = df.withColumn(rankByNationalityPosition.getName(), rank);
+
+        return  df;
     }
 }
