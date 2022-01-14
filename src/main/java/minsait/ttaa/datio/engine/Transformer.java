@@ -16,9 +16,14 @@ import static org.apache.spark.sql.functions.*;
 public class Transformer extends Writer {
     private SparkSession spark;
 
+    public Dataset<Row> getDf() {
+        return df;
+    }
+
+    private Dataset<Row> df;
     public Transformer(@NotNull SparkSession spark) {
         this.spark = spark;
-        Dataset<Row> df = readInput();
+        df = readInput();
 
         df.printSchema();
 
@@ -33,7 +38,6 @@ public class Transformer extends Writer {
         // for show 100 records after your transformations and show the Dataset schema
         df.show(100, false);
         df.printSchema();
-
 
         // Uncomment when you want write your final output
         write(df);
