@@ -24,6 +24,7 @@ public class Transformer extends Writer {
 
         df = cleanData(df);
         df = exampleWindowFunction(df);
+        df = getAgeRange(df);
         df = columnSelection(df);
 
         // for show 100 records after your transformations and show the Dataset schema
@@ -45,7 +46,8 @@ public class Transformer extends Writer {
                 clubName.column(),
                 overall.column(),
                 potential.column(),
-                teamPosition.column()
+                teamPosition.column(),
+                ageRange.column()
                 // catHeightByPosition.column()
         );
     }
@@ -102,7 +104,13 @@ public class Transformer extends Writer {
         return df;
     }
 
+    private Dataset<Row> getAgeRange(Dataset<Row> df){
 
+        df = df.withColumn(ageRange.getName(),  when( age.column().$less(23), "A"  )
+                                                .when(age.column().between(23,27), "B")
+                                                .when(age.column().between(27,32), "C")
+                                                .otherwise("D"));
 
-
+        return df;
+    }
 }
