@@ -6,5 +6,6 @@ public final class PlayerOutput {
     public static Field ageRange = new Field("age_range");
 
     public static Field rankByNationalityPosition = new Field("rank_by_nationality_position");
+    public static Field potentialOverall = new Field("potential_vs_overall");
 
 }

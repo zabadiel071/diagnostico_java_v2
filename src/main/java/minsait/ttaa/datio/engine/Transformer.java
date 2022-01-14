@@ -26,6 +26,7 @@ public class Transformer extends Writer {
         df = exampleWindowFunction(df);
         df = ageRange(df);
         df = rankNationalityPosition(df);
+        df = potentialVSOverall(df);
         df = columnSelection(df);
 
         // for show 100 records after your transformations and show the Dataset schema
@@ -35,6 +36,7 @@ public class Transformer extends Writer {
         // Uncomment when you want write your final output
         //write(df);
     }
+
 
     private Dataset<Row> columnSelection(Dataset<Row> df) {
         return df.select(
@@ -49,7 +51,8 @@ public class Transformer extends Writer {
                 potential.column(),
                 teamPosition.column(),
                 ageRange.column(),
-                rankByNationalityPosition.column()
+                rankByNationalityPosition.column(),
+                potentialOverall.column()
                 // catHeightByPosition.column()
         );
     }
@@ -128,4 +131,9 @@ public class Transformer extends Writer {
 
         return  df;
     }
+
+    private Dataset<Row> potentialVSOverall(Dataset<Row> df) {
+        return df.withColumn(potentialOverall.getName(), round(potential.column().divide(overall.column()), 4)  );
+    }
+
 }
