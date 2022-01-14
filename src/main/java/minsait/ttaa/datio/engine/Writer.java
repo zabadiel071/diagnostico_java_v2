@@ -10,13 +10,13 @@ import static org.apache.spark.sql.SaveMode.Overwrite;
 
 abstract class Writer {
 
-    static void write(Dataset<Row> df) {
+    static void write(Dataset<Row> df , String output) {
         df
                 .coalesce(1)
                 .write()
                 .partitionBy( nationality.getName())
                 .mode(Overwrite)
-                .parquet(OUTPUT_PATH);
+                .parquet(output);
     }
 
 }
