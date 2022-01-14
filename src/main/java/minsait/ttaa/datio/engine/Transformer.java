@@ -28,13 +28,15 @@ public class Transformer extends Writer {
         df = rankNationalityPosition(df);
         df = potentialVSOverall(df);
         df = columnSelection(df);
+        df = filterResults(df);
 
         // for show 100 records after your transformations and show the Dataset schema
         df.show(100, false);
         df.printSchema();
 
+
         // Uncomment when you want write your final output
-        //write(df);
+        write(df);
     }
 
 
@@ -136,4 +138,12 @@ public class Transformer extends Writer {
         return df.withColumn(potentialOverall.getName(), round(potential.column().divide(overall.column()), 4)  );
     }
 
+    private Dataset<Row> filterResults(Dataset<Row> df){
+        df = df.filter(rankByNationalityPosition.column().$less(3)
+                .or( ageRange.column().isin("B", "C").and(potentialOverall.column().$greater(1.15) ) )
+                .or( ageRange.column().equalTo("A").and(potentialOverall.column().$greater(1.25) ) )
+                .or( ageRange.column().equalTo("D").and(rankByNationalityPosition.column().$less(5) ) )
+        );
+        return df;
+    }
 }
